@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
     }),
     DatabaseModule,
     UserModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],

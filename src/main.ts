@@ -9,7 +9,7 @@ async function bootstrap() {
     //To make it accessible by anyone, set origin to '*'
     origin: 'http://localhost:5000',
   });
-  const port = process.env.PORJECT_PORT;
+  const port = process.env.PROJECT_PORT;
 
   await app.listen(port, () => console.log('running on port:' + port));
 }
