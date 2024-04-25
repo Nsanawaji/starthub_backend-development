@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,6 +12,8 @@ async function bootstrap() {
     //To make it accessible by anyone, set origin to '*'
     origin: 'http://localhost:5000',
   });
+
+  app.use(cookieParser());
   const port = process.env.PROJECT_PORT;
 
   await app.listen(port, () => console.log('running on port:' + port));
