@@ -4,6 +4,7 @@ import {
   Injectable,
   Req,
   Res,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import { UpdateUserDto } from 'src/dto/update-user.dto';
@@ -85,5 +86,43 @@ export class UserService {
       userToken: token,
       userDetails: user,
     });
+  }
+
+  async user(headers: any): Promise<any> {
+    const authorizationHeader = headers.authorization;
+    if (authorizationHeader) {
+      const token = authorizationHeader.replace('Bearer ', '');
+      const secret = process.env.JWT_SECRET;
+      try {
+        const decoded = this.jwtService.verify(token);
+        let id = decoded['id'];
+        let user = await this.userRepo.findOneBy({ id });
+
+        return {
+          id: id,
+          name: user.username,
+          email: user.email,
+          role: user.role,
+        };
+      } catch (error) {
+        throw new UnauthorizedException('Invalid Token');
+      }
+    } else {
+      throw new UnauthorizedException('Invalid or missing Bearer Token');
+    }
+  }
+
+  async findEmail(email: string) {
+    const user = await this.userRepo.findOneBy({ email: email });
+
+    if (!user) {
+      throw new UnauthorizedException();
+    } else {
+      return user;
+    }
+  }
+
+  async getAllUser(){
+    return await this.userRepo.find() 
   }
 }

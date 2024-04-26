@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
+import { PassportModule } from '@nestjs/passport';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
@@ -16,5 +18,6 @@ import { UserModule } from './user/user.module';
   ],
   controllers: [AppController],
   providers: [AppService],
+  
 })
 export class AppModule {}
