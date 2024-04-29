@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from "@
 import { Reflector } from "@nestjs/core";
 import { UserService } from '../user/user.service';
 import { userRole } from "src/enum/role.enum";
+import { forBiddenRoleException } from "src/exception/role.exception";
 
 @Injectable()
 export class RolesGuard implements CanActivate{
@@ -17,7 +18,7 @@ export class RolesGuard implements CanActivate{
             let user = this.userService.user(headers);
 
             if (!roles.includes((await user).role)) {
-                throw new ForbiddenException(roles.join(' or '));
+                throw new forBiddenRoleException(roles.join(' or '));
             }
         return true
         }
