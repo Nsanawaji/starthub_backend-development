@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from '../entities/user.entity';
+import { Product } from 'src/product/entities/product.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { User } from '../entities/user.entity';
         username: configService.getOrThrow('DB_USER'),
         password: configService.getOrThrow('DB_PASSWORD'),
         database: configService.getOrThrow('DB_NAME'),
-        entities: [User],
+        entities: [User, Product],
         synchronize: true,
       }),
       inject: [ConfigService],

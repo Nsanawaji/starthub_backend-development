@@ -8,6 +8,8 @@ import {
   Delete,
   Res,
   UseGuards,
+  HttpCode,
+  Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from 'src/dto/create-user.dto';
@@ -28,17 +30,21 @@ export class UserController {
     return this.userService.signUp(payload);
   }
 
-
   @Post('login')
   async login(@Body() payload: LoginDto, @Res() res: Response) {
     const token = await this.userService.login(payload, res);
   }
 
+  @HttpCode(200)
+  @Post('logout')
+  async logout(@Req()req: Request, @Res()res: Response) {
+    return await this.userService.logout(req, res);
+  }
+
   @Get()
   @UseGuards(AuthGuard(), RolesGuard)
-    @Roles(userRole.admin)
+  @Roles(userRole.admin)
   findAll() {
-    return this.userService.getAllUser()
+    return this.userService.getAllUser();
   }
 }
- 

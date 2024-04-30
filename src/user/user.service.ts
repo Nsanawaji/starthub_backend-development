@@ -88,6 +88,18 @@ export class UserService {
     });
   }
 
+  //In express js, to use response, you must include request
+  async logout(@Req() req: Request, @Res() res: Response) {
+    const clearCookie = res.clearCookie('userAuthenticated');
+
+    const response = res.send(` user successfully logged out`);
+
+    return {
+      clearCookie,
+      response,
+    };
+  }
+
   async user(headers: any): Promise<any> {
     const authorizationHeader = headers.authorization;
     if (authorizationHeader) {
@@ -122,7 +134,7 @@ export class UserService {
     }
   }
 
-  async getAllUser(){
-    return await this.userRepo.find() 
+  async getAllUser() {
+    return await this.userRepo.find();
   }
 }
