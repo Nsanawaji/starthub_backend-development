@@ -22,13 +22,13 @@ export class ProductController {
     return this.productService.findOne(name);
   }
 
-  @Put(':name')
-  update(@Param('name') name: string, @Body() payload: any) {
+  @Patch(':id')
+  update(@Param('id') name: string, @Body() payload) {
     return this.productService.update(name, payload);
   }
 
-  @Delete(':name')
-  remove(@Param('name') name: string) {
+  @Delete(':id')
+  remove(@Param('id') name: string) {
     return this.productService.remove(name);
   }
 }

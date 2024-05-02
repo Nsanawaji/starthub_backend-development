@@ -36,18 +36,18 @@ export class ProductService {
     return find;
   }
 
-  async update(name: string, payload) {
-    await this.findItems(name);
-    return await this.productRepository.update(name, payload);
+  async update(id: string, payload) {
+    await this.findItems(id);
+    return await this.productRepository.update(id, payload);
   }
 
-  async remove(name: string) {
-    await this.findItems(name);
-    return await this.productRepository.delete(name);
+  async remove(id: string) {
+    await this.findItems(id);
+    return await this.productRepository.delete(id);
   }
 
-  async findItems(name: string) {
-    const findPro = await this.productRepository.findOneBy({ name: name });
+  async findItems(id: string) {
+    const findPro = await this.productRepository.findOneBy({ id: id });
     if (!findPro) {
       throw new HttpException('Sorry no such product found', 400);
     }
