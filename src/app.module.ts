@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { UserService } from './user/user.service';
 import { ProductModule } from './product/product.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ProductModule } from './product/product.module';
     DatabaseModule,
     UserModule,
     ProductModule,
+    AuthModule,
     
   ],
   controllers: [AppController],
